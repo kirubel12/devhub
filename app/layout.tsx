@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from '@clerk/nextjs'
+import Navbar from "@/components/Navbar";
 
 
 const poppins = Poppins({ subsets: ["latin"], weight: ['400', '600', '800'] });
@@ -19,7 +20,10 @@ export default function RootLayout({
   return (
     <ClerkProvider>
     <html lang="en">
-      <body className={poppins.className}>{children}</body>
+      <body className={poppins.className}>
+        <Navbar />
+        {children}
+        </body>
     </html>
   </ClerkProvider>
   );

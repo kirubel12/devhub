@@ -2,9 +2,8 @@
 
 export default function Home() {
   return (
-  <main>
-    <h2 className="text-4xl font-bold">Homepage</h2>
-   
+  <main className="">
+    <h2 className="text-2xl font-bold">Homepage</h2>
   </main>
   );
 }
