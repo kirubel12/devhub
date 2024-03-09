@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "./ui/button";
 import { UserButton } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs";
+import Link from "next/link";
 
 const Navbar = () => {
   const { userId } = auth();
@@ -30,7 +31,7 @@ const Navbar = () => {
             className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
           >
             <li>
-              <a>Item 1</a>
+              <a>Item 2</a>
             </li>
             <li>
               <a>Parent</a>
@@ -48,7 +49,7 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">DevHub</a>
+        <Link href="/" className="btn btn-ghost text-xl">DevHub</Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">

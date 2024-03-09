@@ -1,11 +1,16 @@
+import Footer from "@/components/Footer";
+import Hero from "@/components/Hero";
+import Section from "@/components/Section";
 import { auth, } from "@clerk/nextjs";
 
 export default function Home() {
   
   
   return (
-  <main className="container mx-auto">
-    <h2 className="text-2xl text-white font-bold">Homepage</h2>
+  <main className="">
+   <Hero />
+   <Section />
+   <Footer />
   </main>
   );
 }
