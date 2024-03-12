@@ -1,16 +1,18 @@
+"use client";
 import React from "react";
-import { Button } from "./ui/button";
 import { UserButton } from "@clerk/nextjs";
-import { auth } from "@clerk/nextjs";
 import Link from "next/link";
-
+import { useUser } from "@clerk/clerk-react";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 const Navbar = () => {
-  const { userId } = auth();
+  const { isSignedIn } = useUser();
+  const pathname = usePathname();
   return (
     <div className="navbar bg-base-100 p-4">
       <div className="navbar-start">
         <div className="dropdown">
-          {userId && (
+          {isSignedIn && (
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -30,13 +32,26 @@ const Navbar = () => {
           )}
           {/* authenticated port */}
 
-          {userId && (
+          {isSignedIn && (
             <ul
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 gap-4 shadow bg-base-100 rounded-box w-52"
             >
               <li>
-                <a>Projects</a>
+                <Link
+                  href="/dashboard"
+                  className={`${pathname === "/dashboard" ? "bg-neutral" : ""}`}
+                >
+                  Dashboard
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/projects"
+                  className={`${pathname === "/projects" ? "bg-neutral" : ""}`}
+                >
+                  Projects
+                </Link>
               </li>
               <li>
                 <a>Message</a>
@@ -47,7 +62,7 @@ const Navbar = () => {
             </ul>
           )}
           {/* unauthenticated port*/}
-          {!userId && (
+          {!isSignedIn && (
             <ul
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 gap-4 shadow bg-base-100 rounded-box w-52"
@@ -68,11 +83,24 @@ const Navbar = () => {
           DevHub
         </Link>
       </div>
-      {userId && (
+      {isSignedIn && (
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
+          <ul className="menu menu-horizontal px-1 space-x-4">
             <li>
-              <a>Projects</a>
+              <Link
+                href="/dashboard"
+                className={`${pathname === "/dashboard" ? "bg-neutral" : ""}`}
+              >
+                Dashboard
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/projects"
+                className={`${pathname === "/projects" ? "bg-neutral" : ""}`}
+              >
+                Projects
+              </Link>
             </li>
             <li>
               <a href="">Messages</a>
@@ -83,12 +111,12 @@ const Navbar = () => {
           </ul>
         </div>
       )}
-      {userId && (
+      {isSignedIn && (
         <div className="navbar-end flex space-x-4">
           <UserButton afterSignOutUrl="/" />
         </div>
       )}
-      {!userId && (
+      {!isSignedIn && (
         <div className="navbar-end flex space-x-4">
           <Link href="/login">
             <button className="btn btn-primary text-white">Sign in</button>
