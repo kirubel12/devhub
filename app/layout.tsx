@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import { ClerkProvider } from '@clerk/nextjs'
+import { ClerkProvider } from "@clerk/nextjs";
 import Navbar from "@/components/Navbar";
-import { ThemeProvider } from "@/components/theme-provider"
+import { ThemeProvider } from "@/components/theme-provider";
+import { dark, neobrutalism, shadesOfPurple } from "@clerk/themes";
 
-
-const poppins = Poppins({ subsets: ["latin"], weight: ['400', '600', '800'] });
+const poppins = Poppins({ subsets: ["latin"], weight: ["400", "600", "800"] });
 
 export const metadata: Metadata = {
   title: "Dev Hub",
@@ -19,22 +19,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
-    <html lang="en" data-theme="dark">
-      <body className={poppins.className}>
-      <ThemeProvider
+    <ClerkProvider
+      appearance={{
+        baseTheme: shadesOfPurple,
+        signIn: { baseTheme: dark },
+      }}
+    >
+      <html lang="en" data-theme="dark">
+        <body className={poppins.className}>
+          <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
           >
-            <Navbar />  
-           <main className="container mx-auto">
-           {children}
-           </main>
+            <Navbar />
+            <main className="container mx-auto">{children}</main>
           </ThemeProvider>
         </body>
-    </html>
-  </ClerkProvider>
+      </html>
+    </ClerkProvider>
   );
 }
