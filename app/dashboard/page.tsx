@@ -1,18 +1,13 @@
 "use client";
 import React, { Suspense } from "react";
 import { useAuth } from "@clerk/clerk-react";
-import Sidebar from "@/components/Sidebar";
-import { useState } from "react";
 import { supabaseClient } from "@/lib/supabaseClient";
 import Loading from "./loading";
 import { Button } from "@/components/ui/button";
 import { useSession } from "@clerk/nextjs";
 const Dashboard = () => {
-  // const { isSignedIn, user } = useUser();
-  const { getToken, userId } = useAuth();
+  const { userId } = useAuth();
   const { session } = useSession();
-  const [title, setTitle] = useState("");
-  const [link, setLink] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
