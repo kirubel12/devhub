@@ -4,7 +4,7 @@ import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { useUser } from "@clerk/clerk-react";
 import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 const Navbar = () => {
   const { isSignedIn } = useUser();
   const pathname = usePathname();
@@ -54,7 +54,12 @@ const Navbar = () => {
                 </Link>
               </li>
               <li>
-                <a>Message</a>
+                <Link
+                  href="/message"
+                  className={`${pathname === "/message" ? "bg-neutral" : ""}`}
+                >
+                  Message
+                </Link>
               </li>
               <li>
                 <a href="">Groups</a>
@@ -103,7 +108,12 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <a href="">Messages</a>
+              <Link
+                href="/message"
+                className={`${pathname === "/message" ? "bg-neutral" : ""}`}
+              >
+                Message
+              </Link>
             </li>
             <li>
               <a>Groups</a>
@@ -119,7 +129,7 @@ const Navbar = () => {
       {!isSignedIn && (
         <div className="navbar-end flex space-x-4">
           <Link href="/login">
-            <button className="btn btn-primary text-white">Sign in</button>
+            <Button>Sign in</Button>
           </Link>
         </div>
       )}

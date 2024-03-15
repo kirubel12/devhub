@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "./ui/button";
 
 const Hero = () => {
   return (
@@ -18,9 +19,7 @@ const Hero = () => {
 
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <a href="/login">
-              <button className="btn btn-primary text-white">
-                Get started
-              </button>
+              <Button>Get started</Button>
             </a>
           </div>
         </div>
