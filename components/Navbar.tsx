@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { useSession } from "next-auth/react";
+import { signOut } from "@/auth";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,6 +14,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Image from "next/image";
 const Navbar = () => {
   const { status, data: user } = useSession();
   console.log(user?.user);
@@ -133,11 +135,30 @@ const Navbar = () => {
       {status === "authenticated" && (
         <div className="navbar-end flex space-x-4">
           <DropdownMenu>
-            <DropdownMenuTrigger>{user.user?.name}</DropdownMenuTrigger>
+            <DropdownMenuTrigger>
+              {user?.user?.image && (
+                <Image
+                  src={user.user.image}
+                  alt="Profile"
+                  width={40}
+                  height={40}
+                  className="w-10 rounded-full"
+                />
+              )}
+            </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Logout</DropdownMenuItem>
+              <DropdownMenuItem>
+                <Button variant="ghost" onClick={() => signOut}>
+                  Profile
+                </Button>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Button variant="ghost" onClick={() => signOut}>
+                  Logout
+                </Button>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
