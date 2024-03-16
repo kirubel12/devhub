@@ -12,5 +12,5 @@ export default async function middleware(req: NextApiRequest, res: NextApiRespon
 }
 
 export const config = {
-    matcher: ['/dashboard', '/project', '/message'],
+    matcher: ['/dashboard', '/projects', '/message'],
 }
