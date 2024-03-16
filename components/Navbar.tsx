@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { useSession } from "next-auth/react";
-import { signOut } from "@/auth";
+import { signOut } from "next-auth/react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -150,12 +150,10 @@ const Navbar = () => {
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                <Button variant="ghost" onClick={() => signOut}>
-                  Profile
-                </Button>
+                <Button variant="ghost">Profile</Button>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Button variant="ghost" onClick={() => signOut}>
+                <Button variant="ghost" onClick={() => signOut()}>
                   Logout
                 </Button>
               </DropdownMenuItem>
