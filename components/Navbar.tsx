@@ -1,18 +1,27 @@
 "use client";
 import React from "react";
-import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
-import { useUser } from "@clerk/clerk-react";
+
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { useSession } from "next-auth/react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 const Navbar = () => {
-  const { isSignedIn } = useUser();
+  const { status, data: user } = useSession();
+  console.log(user?.user);
   const pathname = usePathname();
   return (
     <div className="navbar bg-base-100 p-4">
       <div className="navbar-start">
         <div className="dropdown">
-          {isSignedIn && (
+          {status === "authenticated" && (
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -32,7 +41,7 @@ const Navbar = () => {
           )}
           {/* authenticated port */}
 
-          {isSignedIn && (
+          {status === "authenticated" && (
             <ul
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 gap-4 shadow bg-base-100 rounded-box w-52"
@@ -67,7 +76,7 @@ const Navbar = () => {
             </ul>
           )}
           {/* unauthenticated port*/}
-          {!isSignedIn && (
+          {status === "unauthenticated" && (
             <ul
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 gap-4 shadow bg-base-100 rounded-box w-52"
@@ -88,7 +97,7 @@ const Navbar = () => {
           DevHub
         </Link>
       </div>
-      {isSignedIn && (
+      {status === "authenticated" && (
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1 space-x-4">
             <li>
@@ -121,14 +130,21 @@ const Navbar = () => {
           </ul>
         </div>
       )}
-      {isSignedIn && (
+      {status === "authenticated" && (
         <div className="navbar-end flex space-x-4">
-          <UserButton afterSignOutUrl="/" />
+          <DropdownMenu>
+            <DropdownMenuTrigger>{user.user?.name}</DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Logout</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       )}
-      {!isSignedIn && (
+      {status === "unauthenticated" && (
         <div className="navbar-end flex space-x-4">
-          <Link href="/login">
+          <Link href="/api/auth/signin">
             <Button>Sign in</Button>
           </Link>
         </div>

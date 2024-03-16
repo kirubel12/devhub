@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import { ClerkProvider } from "@clerk/nextjs";
 import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "@/components/theme-provider";
-import { dark, neobrutalism, shadesOfPurple } from "@clerk/themes";
-
+import Provider from "./provider";
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "600", "800"] });
 
 export const metadata: Metadata = {
@@ -19,12 +17,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider
-      appearance={{
-        baseTheme: shadesOfPurple,
-        signIn: { baseTheme: dark },
-      }}
-    >
+    <Provider>
       <html lang="en" data-theme="dark">
         <body className={poppins.className}>
           <ThemeProvider
@@ -38,6 +31,6 @@ export default function RootLayout({
           </ThemeProvider>
         </body>
       </html>
-    </ClerkProvider>
+    </Provider>
   );
 }
